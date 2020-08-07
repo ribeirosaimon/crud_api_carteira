@@ -14,6 +14,7 @@ def cria_banco():
 
 
 api.add_resource(Carteira, '/carteira')
+api.add_resource(Usuarios, '/usuarios')
 api.add_resource(Acao, '/carteira/<int:acao_id>')
 api.add_resource(Usuario,'/usuarios/<int:usuario>')
 
