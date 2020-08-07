@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from models.acao import CarteiraModel
-
+from models.usuario import UsuarioModel
 
 
 class Carteira(Resource):
@@ -13,6 +13,7 @@ class Acao(Resource):
     args = reqparse.RequestParser()
     args.add_argument('acao', type=str, required=True, help="The Field 'acao' cannot be left blank")
     args.add_argument('preco_medio', type=float, required=True)
+    args.add_argument('usuario',type=int, required=True, help='User not found')
 
     def get(self, acao_id):
         acao = CarteiraModel.find_acao(acao_id)
@@ -25,6 +26,8 @@ class Acao(Resource):
             return {'message': f"Stock id '{acao_id}' already exists."}, 400
         dados = Acao.args.parse_args()
         acao = CarteiraModel(acao_id, **dados)
+        if not UsuarioModel.find_usuario(dados['usuario']):
+            return {'message':'Stock not associated'}, 400
         try:
             acao.save_acao()
         except:

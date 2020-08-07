@@ -4,6 +4,7 @@ from banco_de_dados import banco
 class UsuarioModel(banco.Model):
     __tablename__ = 'usuario'
     usuario = banco.Column(banco.Integer, primary_key=True)
+    carteira = banco.relationship('CarteiraModel')
 
     def __init__(self,usuario):
         self.usuario = usuario
@@ -11,6 +12,7 @@ class UsuarioModel(banco.Model):
     def json(self):
         return {
             'usuario':self.usuario,
+            'carteira':[acao.json() for acao in self.carteira]
         }
 
     @classmethod
@@ -25,5 +27,6 @@ class UsuarioModel(banco.Model):
         banco.session.commit()
 
     def delete_usuario(self):
+        [carteira.delete_acao() for acao in self.carteira]
         banco.session.delete(self)
         banco.session.commit()
