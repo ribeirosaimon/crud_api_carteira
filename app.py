@@ -4,6 +4,7 @@ from resources.carteira import Carteira, Acao
 from resources.usuario import Usuarios, Usuario
 import os
 import psycopg2
+from banco_de_dados import banco
 
 
 app = Flask(__name__)
