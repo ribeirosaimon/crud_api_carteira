@@ -8,7 +8,7 @@ import psycopg2
 
 
 app = Flask(__name__)
-app.config['DATABASE_URL'] = os.environ.get(DATABASE_URL)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 
