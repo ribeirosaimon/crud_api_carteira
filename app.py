@@ -2,13 +2,12 @@ from flask import Flask
 from flask_restful import Api
 from resources.carteira import Carteira, Acao
 from resources.usuario import Usuarios, Usuario
-from .env import DATABASE_URL
 import os
 import psycopg2
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///banco.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 api = Api(app)
 
