@@ -13,7 +13,10 @@ class Acao(Resource):
     args = reqparse.RequestParser()
     args.add_argument('acao', type=str, required=True, help="The Field 'acao' cannot be left blank")
     args.add_argument('preco_medio', type=float, required=True)
+    args.add_argument('stop_loss', type=float)
+    args.add_argument('stop_gain', type=float)
     args.add_argument('usuario',type=int, required=True, help='User not found')
+
 
     def get(self, acao_id):
         acao = CarteiraModel.find_acao(acao_id)
